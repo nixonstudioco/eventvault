@@ -2,55 +2,53 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Menu, X, Vault } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { Logo } from '@/components/ui/Logo'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
   { label: 'How it works', href: '#how-it-works' },
-  { label: 'Features', href: '#features' },
-  { label: 'Use cases', href: '#use-cases' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'Features',     href: '#features' },
+  { label: 'Use cases',    href: '#use-cases' },
+  { label: 'Pricing',      href: '#pricing' },
 ]
 
 export function LandingNav() {
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled]   = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => setScrolled(window.scrollY > 30)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
-    <nav
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled ? 'glass border-b border-white/10' : 'bg-transparent'
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-xl bg-brand-600 flex items-center justify-center glow-brand-sm group-hover:scale-105 transition-transform">
-              <Vault className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-xl font-bold text-white">EventVault</span>
-          </Link>
+    <nav className={cn(
+      'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+      scrolled
+        ? 'bg-[#07071a]/90 backdrop-blur-xl border-b border-white/6'
+        : 'bg-transparent'
+    )}>
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-18">
+          <Logo size="sm" />
 
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                className="px-4 py-2 text-sm font-medium text-white/55 hover:text-white/90 transition-colors rounded-lg hover:bg-white/5"
               >
                 {link.label}
               </a>
             ))}
           </div>
 
+          {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
             <Link href="/login">
               <Button variant="ghost" size="sm">Log in</Button>
@@ -60,29 +58,31 @@ export function LandingNav() {
             </Link>
           </div>
 
+          {/* Mobile toggle */}
           <button
-            className="md:hidden text-white/70 hover:text-white"
+            className="md:hidden p-2 rounded-xl text-white/60 hover:text-white hover:bg-white/5 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
+      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden glass border-t border-white/10 animate-slide-down">
+        <div className="md:hidden bg-[#0c0c20]/95 backdrop-blur-xl border-t border-white/6 animate-slide-down">
           <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+                className="block px-4 py-3 text-sm font-medium text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
               >
                 {link.label}
               </a>
             ))}
-            <div className="flex flex-col gap-2 pt-4 border-t border-white/10">
+            <div className="flex flex-col gap-2 pt-4 border-t border-white/6">
               <Link href="/login" onClick={() => setMobileOpen(false)}>
                 <Button variant="secondary" size="md" className="w-full">Log in</Button>
               </Link>

@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
   title: {
-    default: 'EventVault — All event memories. One QR away.',
+    default: 'EventVault — Every moment. Safe. Forever.',
     template: '%s | EventVault',
   },
   description:
@@ -13,9 +13,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://eventvault.io',
     siteName: 'EventVault',
-    title: 'EventVault — All event memories. One QR away.',
+    title: 'EventVault — Every moment. Safe. Forever.',
     description: 'Private media galleries for your most important moments.',
   },
 }
@@ -29,18 +28,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           position="top-right"
           toastOptions={{
             style: {
-              background: '#1a1a2e',
-              color: '#fff',
-              border: '1px solid rgba(99,102,241,0.3)',
+              background: '#0c0c20',
+              color: '#f1f5f9',
+              border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: '12px',
-              fontSize: '14px',
+              fontSize: '13px',
+              fontWeight: '500',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
             },
-            success: {
-              iconTheme: { primary: '#6366f1', secondary: '#fff' },
-            },
-            error: {
-              iconTheme: { primary: '#ef4444', secondary: '#fff' },
-            },
+            success: { iconTheme: { primary: '#4ade80', secondary: '#0c0c20' } },
+            error:   { iconTheme: { primary: '#f87171', secondary: '#0c0c20' } },
           }}
         />
       </body>

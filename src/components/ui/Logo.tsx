@@ -21,13 +21,12 @@ function LogoContent({ size = 'md', showText = true }: Omit<LogoProps, 'href' | 
   return (
     <span className="flex items-center gap-2.5">
       <Image
-        src="/logo.png"
+        src="/logo.svg"
         alt="EventVault"
         width={s.img}
         height={s.img}
         className="rounded-xl flex-shrink-0 object-contain"
         priority
-        onError={(e) => { (e.target as HTMLImageElement).src = '/logo.svg' }}
       />
       {showText && (
         <span className={cn('font-bold tracking-tight', s.text)}>

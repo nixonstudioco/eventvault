@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, type MotionProps } from 'framer-motion'
 import Link from 'next/link'
 import { Check, Zap, Crown } from 'lucide-react'
 
@@ -39,11 +39,11 @@ const plans = [
   },
 ]
 
-const inView = (delay = 0) => ({
+const inView = (delay = 0): MotionProps => ({
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.55, delay, ease: [0.25, 0.46, 0.45, 0.94] },
+  transition: { duration: 0.55, delay, ease: [0.25, 0.46, 0.45, 0.94] as number[] },
 })
 
 export function PricingSection() {

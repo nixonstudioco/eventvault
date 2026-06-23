@@ -1,34 +1,60 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { ArrowRight, Lock, RefreshCw, CreditCard } from 'lucide-react'
 
 export function CTASection() {
   return (
-    <section className="py-24 lg:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-600/20 via-purple-600/10 to-transparent" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-500/50 to-transparent" />
-      </div>
+    <section className="py-28 lg:py-36 px-5 relative overflow-hidden">
+      <div className="section-divider mb-0" />
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
-          Your next event deserves
-          <br />
-          <span className="gradient-text">to be remembered.</span>
-        </h2>
-        <p className="text-lg text-white/50 mb-10">
-          Create your first event in under 2 minutes. No credit card required to start.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/register">
-            <Button variant="primary" size="lg" iconRight={<ArrowRight className="w-5 h-5" />}>
-              Create your first event
-            </Button>
+      {/* Background glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 60%, rgba(123,47,247,0.14) 0%, transparent 65%)',
+        }}
+      />
+
+      <div className="relative z-10 max-w-3xl mx-auto text-center pt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <h2
+            className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6"
+            style={{ letterSpacing: '-0.03em', lineHeight: 1.05 }}
+          >
+            Ready to collect
+            <br />
+            <span className="gradient-text">every memory?</span>
+          </h2>
+
+          <p className="text-lg text-white/45 mb-10 max-w-lg mx-auto leading-relaxed">
+            Create your first event gallery in 60 seconds. Your guests will love it.
+          </p>
+
+          <Link href="/register" className="btn-primary text-base py-4 px-9 inline-flex">
+            Create your event free
+            <ArrowRight size={18} />
           </Link>
-          <Link href="/pricing">
-            <Button variant="secondary" size="lg">View pricing</Button>
-          </Link>
-        </div>
+
+          <div className="flex items-center justify-center gap-6 mt-8">
+            {[
+              { icon: CreditCard, label: 'No credit card required' },
+              { icon: RefreshCw, label: 'Cancel anytime' },
+              { icon: Lock, label: 'SSL encrypted' },
+            ].map(({ icon: Icon, label }) => (
+              <div key={label} className="flex items-center gap-1.5 text-sm text-white/30">
+                <Icon size={13} />
+                {label}
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   )

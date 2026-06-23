@@ -1,67 +1,107 @@
-import { Plus, QrCode, Upload, CheckCircle } from 'lucide-react'
+'use client'
+
+import { motion } from 'framer-motion'
+import { QrCode, Upload, CheckCircle2 } from 'lucide-react'
 
 const steps = [
   {
-    step: '01',
-    icon: Plus,
-    title: 'Create your event',
-    description: 'Set up your event in minutes. Choose the name, date, type, and privacy settings.',
-    color: 'from-brand-600 to-purple-600',
-  },
-  {
-    step: '02',
+    num: '01',
     icon: QrCode,
-    title: 'Share the QR code',
-    description: 'Download your unique QR code and print it, display it on screens, or add it to invitations.',
-    color: 'from-purple-600 to-cyan-600',
+    title: 'Create your event',
+    desc: 'Set up in under 60 seconds. Give it a name, pick your settings, and your unique QR code is ready instantly.',
+    color: '#7B2FF7',
   },
   {
-    step: '03',
+    num: '02',
     icon: Upload,
-    title: 'Guests upload memories',
-    description: 'Guests scan the QR and instantly upload photos and videos from their phone — no app needed.',
-    color: 'from-cyan-600 to-brand-600',
+    title: 'Guests scan & upload',
+    desc: 'Print or share the QR code. Guests scan with any phone and upload photos or videos directly — no app, no account required.',
+    color: '#8b5cf6',
   },
   {
-    step: '04',
-    icon: CheckCircle,
-    title: 'You approve & share',
-    description: 'Review uploads, approve the best ones, and share the gallery link with everyone.',
-    color: 'from-brand-600 to-green-600',
+    num: '03',
+    icon: CheckCircle2,
+    title: 'You moderate & keep',
+    desc: 'Review every upload before it goes public. Approve, reject, download everything in one click. The memories are yours forever.',
+    color: '#06b6d4',
   },
 ]
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="py-24 lg:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
-            How it <span className="gradient-text">works</span>
+    <section id="how-it-works" className="py-28 lg:py-36 px-5 relative">
+      <div className="section-divider" />
+
+      <div className="max-w-6xl mx-auto pt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
+        >
+          <p className="text-xs font-semibold tracking-widest text-white/30 uppercase mb-4">How it works</p>
+          <h2
+            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-5"
+            style={{ letterSpacing: '-0.025em' }}
+          >
+            Simple as it gets.
           </h2>
-          <p className="text-lg text-white/50 max-w-xl mx-auto">
-            From setup to shared gallery in under 5 minutes.
+          <p className="text-lg text-white/45 max-w-lg mx-auto">
+            Three steps from creation to a full gallery of memories.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-          {/* Connecting line */}
-          <div className="hidden lg:block absolute top-16 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-brand-600/40 via-purple-600/40 to-brand-600/40" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          {/* Desktop connector */}
+          <div
+            className="hidden md:block absolute top-14 left-[calc(16.67%+32px)] right-[calc(16.67%+32px)] h-px"
+            style={{ background: 'linear-gradient(90deg, rgba(123,47,247,0.35) 0%, rgba(6,182,212,0.35) 100%)' }}
+          />
 
-          {steps.map((step, i) => (
-            <div key={step.step} className="relative text-center group">
-              <div className="relative inline-block mb-6">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  <step.icon className="w-7 h-7 text-white" />
+          {steps.map((step, i) => {
+            const Icon = step.icon
+            return (
+              <motion.div
+                key={step.num}
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.55, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <div className="flex justify-center mb-8">
+                  <div
+                    className="relative w-14 h-14 rounded-2xl flex items-center justify-center"
+                    style={{ background: '#0d0d0d', border: `1px solid ${step.color}30` }}
+                  >
+                    <Icon size={22} style={{ color: step.color }} />
+                    <div
+                      className="absolute -top-2.5 -right-2.5 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 border-black"
+                      style={{ background: step.color }}
+                    >
+                      {i + 1}
+                    </div>
+                  </div>
                 </div>
-                <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-surface-800 border border-white/10 text-xs font-bold text-white/50 flex items-center justify-center">
-                  {i + 1}
-                </span>
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-              <p className="text-sm text-white/50 leading-relaxed">{step.description}</p>
-            </div>
-          ))}
+
+                <div className="text-center px-2">
+                  <div
+                    className="text-[80px] font-black leading-none mb-2 select-none"
+                    style={{
+                      background: `linear-gradient(135deg, ${step.color}25 0%, transparent 100%)`,
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
+                    {step.num}
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+                  <p className="text-sm text-white/40 leading-relaxed max-w-xs mx-auto">{step.desc}</p>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>

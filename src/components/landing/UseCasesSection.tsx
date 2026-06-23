@@ -1,62 +1,53 @@
-const useCases = [
-  {
-    emoji: '💍',
-    type: 'Weddings',
-    description: 'Collect every candid shot from every guest. Share a QR on tables, photo walls, or invites.',
-    stat: '300+ photos avg',
-  },
-  {
-    emoji: '🎂',
-    type: 'Birthdays & Majorate',
-    description: 'Let the whole party contribute to the memory bank. No more chasing photos on WhatsApp.',
-    stat: '150+ photos avg',
-  },
-  {
-    emoji: '✝️',
-    type: 'Baptisms',
-    description: 'A beautiful, curated gallery of the most intimate family moments, approved by you.',
-    stat: '80+ photos avg',
-  },
-  {
-    emoji: '🎉',
-    type: 'Private Parties',
-    description: 'Keep the vibe going after the event with a shared gallery everyone can browse.',
-    stat: '200+ photos avg',
-  },
-  {
-    emoji: '💼',
-    type: 'Corporate Events',
-    description: 'Team days, launches, conferences — collect professional content from all angles.',
-    stat: '100+ photos avg',
-  },
+'use client'
+
+import { motion } from 'framer-motion'
+
+const cases = [
+  { emoji: '💍', label: 'Weddings', desc: 'Collect photos from all your guests in one private gallery.' },
+  { emoji: '🎂', label: 'Birthdays', desc: 'Let everyone contribute their favorite moments from the party.' },
+  { emoji: '🕊️', label: 'Baptisms', desc: 'Preserve precious first memories with family and friends.' },
+  { emoji: '🎓', label: 'Graduations', desc: 'Capture the day from every angle — friends, family, candids.' },
+  { emoji: '🏢', label: 'Corporate', desc: 'Company events, retreats, and team celebrations.' },
+  { emoji: '🎉', label: 'Any celebration', desc: 'Anniversaries, reunions, holidays — any event worth remembering.' },
 ]
 
 export function UseCasesSection() {
   return (
-    <section id="use-cases" className="py-24 lg:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
-            Built for every <span className="gradient-text">occasion</span>
-          </h2>
-          <p className="text-lg text-white/50 max-w-xl mx-auto">
-            From intimate family gatherings to large corporate events.
-          </p>
-        </div>
+    <section className="py-10 lg:py-16 px-5 relative">
+      <div className="section-divider mb-20" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-          {useCases.map((uc) => (
-            <div
-              key={uc.type}
-              className="glass-card p-6 text-center group hover:border-brand-500/30 hover:-translate-y-1 transition-all duration-300"
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <p className="text-xs font-semibold tracking-widest text-white/30 uppercase mb-4">Perfect for</p>
+          <h2
+            className="text-4xl sm:text-5xl font-black text-white"
+            style={{ letterSpacing: '-0.025em' }}
+          >
+            Every occasion.
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          {cases.map((c, i) => (
+            <motion.div
+              key={c.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.45, delay: i * 0.06, ease: 'easeOut' }}
+              className="rounded-2xl p-5 text-center group cursor-default transition-all duration-200 hover:bg-white/[0.03]"
+              style={{ border: '1px solid rgba(255,255,255,0.05)' }}
             >
-              <div className="text-4xl mb-4">{uc.emoji}</div>
-              <h3 className="font-bold text-white mb-2">{uc.type}</h3>
-              <p className="text-xs text-white/50 leading-relaxed mb-4">{uc.description}</p>
-              <span className="glass px-3 py-1 rounded-full text-xs font-semibold text-brand-400 border border-brand-500/20">
-                {uc.stat}
-              </span>
-            </div>
+              <div className="text-3xl mb-3">{c.emoji}</div>
+              <div className="text-sm font-semibold text-white/80 mb-1">{c.label}</div>
+              <div className="text-xs text-white/30 leading-relaxed">{c.desc}</div>
+            </motion.div>
           ))}
         </div>
       </div>

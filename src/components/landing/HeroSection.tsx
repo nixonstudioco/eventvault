@@ -61,14 +61,13 @@ export function HeroSection() {
           {...fadeUp(0.16)}
           className="text-lg sm:text-xl text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Create a private media gallery for your wedding, birthday, or any event.
-          Guests upload with a single QR scan — no app, no friction.
+          Free to join. When you&apos;re ready, create a private gallery for your wedding, birthday, or any event — starting at €10. Guests upload via QR, no app needed.
         </motion.p>
 
         {/* CTAs */}
         <motion.div {...fadeUp(0.24)} className="flex flex-col sm:flex-row gap-3 justify-center mb-14">
           <Link href="/register" className="btn-primary text-base py-3.5 px-7">
-            Create your event free
+            Create free account
             <ArrowRight size={16} />
           </Link>
           <a href="#how-it-works" className="btn-secondary text-base py-3.5 px-7">

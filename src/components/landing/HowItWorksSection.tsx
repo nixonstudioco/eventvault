@@ -1,35 +1,54 @@
 'use client'
 
-import { motion, type MotionProps } from 'framer-motion'
-import { QrCode, Upload, CheckCircle2 } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { UserPlus, CreditCard, Settings, Sparkles } from 'lucide-react'
 
 const steps = [
   {
     num: '01',
-    icon: QrCode,
-    title: 'Create your event',
-    desc: 'Set up in under 60 seconds. Give it a name, pick your settings, and your unique QR code is ready instantly.',
+    icon: UserPlus,
+    title: 'Create a free account',
+    desc: 'Sign up in seconds. No credit card required. Your account is free — forever.',
     color: '#7B2FF7',
+    tag: 'Free',
+    tagColor: 'rgba(34,197,94,0.15)',
+    tagText: '#4ade80',
   },
   {
     num: '02',
-    icon: Upload,
-    title: 'Guests scan & upload',
-    desc: 'Print or share the QR code. Guests scan with any phone and upload photos or videos directly — no app, no account required.',
+    icon: CreditCard,
+    title: 'Choose your plan',
+    desc: 'When you\'re ready to create an event gallery, pick Basic (€10) or Premium (€30). One flat fee — no subscriptions, no surprises.',
     color: '#8b5cf6',
+    tag: 'One-time payment',
+    tagColor: 'rgba(123,47,247,0.15)',
+    tagText: '#c084fc',
   },
   {
     num: '03',
-    icon: CheckCircle2,
-    title: 'You moderate & keep',
-    desc: 'Review every upload before it goes public. Approve, reject, download everything in one click. The memories are yours forever.',
+    icon: Settings,
+    title: 'Configure & launch',
+    desc: 'Set up your event, get your QR code instantly, and share it with your guests. Your gallery goes live immediately.',
     color: '#06b6d4',
+    tag: '60 seconds setup',
+    tagColor: 'rgba(6,182,212,0.15)',
+    tagText: '#22d3ee',
+  },
+  {
+    num: '04',
+    icon: Sparkles,
+    title: 'Enjoy the experience',
+    desc: 'Guests scan, upload, and the memories pour in. You moderate, curate, and download everything. Yours forever.',
+    color: '#a855f7',
+    tag: 'Memories forever',
+    tagColor: 'rgba(168,85,247,0.15)',
+    tagText: '#d8b4fe',
   },
 ]
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="py-28 lg:py-36 px-5 relative">
+    <section id="how-it-works" className="py-20 lg:py-28 px-5 relative">
       <div className="section-divider" />
 
       <div className="max-w-6xl mx-auto pt-20">
@@ -48,15 +67,16 @@ export function HowItWorksSection() {
             Simple as it gets.
           </h2>
           <p className="text-lg text-white/45 max-w-lg mx-auto">
-            Three steps from creation to a full gallery of memories.
+            From zero to a live event gallery — four steps, no complexity.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {/* Desktop connector */}
+        {/* 4-step grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 relative">
+          {/* Connector line desktop */}
           <div
-            className="hidden md:block absolute top-14 left-[calc(16.67%+32px)] right-[calc(16.67%+32px)] h-px"
-            style={{ background: 'linear-gradient(90deg, rgba(123,47,247,0.35) 0%, rgba(6,182,212,0.35) 100%)' }}
+            className="hidden lg:block absolute top-[52px] left-[calc(12.5%+28px)] right-[calc(12.5%+28px)] h-px"
+            style={{ background: 'linear-gradient(90deg, rgba(123,47,247,0.3) 0%, rgba(6,182,212,0.3) 100%)' }}
           />
 
           {steps.map((step, i) => {
@@ -67,9 +87,11 @@ export function HowItWorksSection() {
                 initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.55, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.55, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] as number[] }}
+                className="flex flex-col items-center text-center"
               >
-                <div className="flex justify-center mb-8">
+                {/* Icon circle */}
+                <div className="flex justify-center mb-6 relative z-10">
                   <div
                     className="relative w-14 h-14 rounded-2xl flex items-center justify-center"
                     style={{ background: '#0d0d0d', border: `1px solid ${step.color}30` }}
@@ -84,21 +106,16 @@ export function HowItWorksSection() {
                   </div>
                 </div>
 
-                <div className="text-center px-2">
-                  <div
-                    className="text-[80px] font-black leading-none mb-2 select-none"
-                    style={{
-                      background: `linear-gradient(135deg, ${step.color}25 0%, transparent 100%)`,
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                    }}
-                  >
-                    {step.num}
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                  <p className="text-sm text-white/40 leading-relaxed max-w-xs mx-auto">{step.desc}</p>
+                {/* Tag */}
+                <div
+                  className="text-[11px] font-semibold px-3 py-1 rounded-full mb-4"
+                  style={{ background: step.tagColor, color: step.tagText }}
+                >
+                  {step.tag}
                 </div>
+
+                <h3 className="text-base font-bold text-white mb-2">{step.title}</h3>
+                <p className="text-sm text-white/40 leading-relaxed">{step.desc}</p>
               </motion.div>
             )
           })}

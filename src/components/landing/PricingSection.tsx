@@ -2,38 +2,55 @@
 
 import { motion, type MotionProps } from 'framer-motion'
 import Link from 'next/link'
-import { Check, Zap, Crown } from 'lucide-react'
+import { Check, Zap, Crown, Info } from 'lucide-react'
 
 const plans = [
   {
     name: 'Basic',
-    price: 19,
+    price: 10,
+    currency: '€',
     icon: Zap,
-    description: 'Perfect for a single event',
+    description: 'Everything you need for one event',
     badge: null,
     accent: 'rgba(255,255,255,0.08)',
     iconBg: 'rgba(255,255,255,0.06)',
     iconColor: '#888',
-    features: ['1 active event', '5 GB storage', 'Photo & video upload', 'QR code included', 'Public gallery', 'Manual moderation', 'Guest guestbook'],
-    cta: 'Get started',
+    features: [
+      '1 active event',
+      '5 GB storage',
+      'Photo & video upload',
+      'QR code included',
+      'Public gallery',
+      'Manual moderation',
+      'Guest guestbook',
+    ],
+    cta: 'Create event — €10',
     href: '/register?plan=basic',
     highlight: false,
   },
   {
     name: 'Premium',
-    price: 49,
+    price: 30,
+    currency: '€',
     icon: Crown,
-    description: 'For organizers who want everything',
+    description: 'The full experience, one event',
     badge: 'Most Popular',
     accent: 'rgba(123,47,247,0.35)',
     iconBg: 'rgba(123,47,247,0.15)',
     iconColor: '#c084fc',
     features: [
-      'Unlimited events', '50 GB storage', 'Photo & video upload',
-      'Custom QR poster design', 'Live gallery', 'Guest guestbook',
-      'Bulk download all media', 'Email notifications', 'Priority support',
+      '1 active event',
+      '50 GB storage',
+      'Photo & video upload',
+      'Custom QR poster design',
+      'Live gallery',
+      'Guest guestbook',
+      'Personal branding',
+      'Bulk download all media',
+      'Email notifications',
+      'Priority support',
     ],
-    cta: 'Go Premium',
+    cta: 'Create event — €30',
     href: '/register?plan=premium',
     highlight: true,
   },
@@ -52,19 +69,32 @@ export function PricingSection() {
       <div className="section-divider mb-20" />
 
       <div className="max-w-5xl mx-auto">
-        <motion.div {...inView(0)} className="text-center mb-16">
+        <motion.div {...inView(0)} className="text-center mb-6">
           <p className="text-xs font-semibold tracking-widest text-white/30 uppercase mb-4">Pricing</p>
           <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-5"
             style={{ letterSpacing: '-0.025em' }}
           >
-            Simple pricing.
+            Pay once.
             <br />
-            <span className="gradient-text">No surprises.</span>
+            <span className="gradient-text">Own the memory.</span>
           </h2>
-          <p className="text-lg text-white/45 max-w-md mx-auto">
-            Pay per event. No subscriptions, no hidden fees.
+          <p className="text-lg text-white/45 max-w-md mx-auto mb-4">
+            No subscriptions. No monthly fees. Pay per event, keep it forever.
           </p>
+        </motion.div>
+
+        {/* Free account callout */}
+        <motion.div {...inView(0.08)} className="flex justify-center mb-12">
+          <div
+            className="flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm"
+            style={{ background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.15)' }}
+          >
+            <div className="w-2 h-2 rounded-full bg-green-400 flex-shrink-0" style={{ boxShadow: '0 0 6px rgba(74,222,128,0.6)' }} />
+            <span className="text-white/60">
+              Account creation is <span className="text-green-400 font-semibold">always free</span> — you only pay when you create an event gallery.
+            </span>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
@@ -100,21 +130,29 @@ export function PricingSection() {
                   </div>
                 </div>
 
-                <div className="mb-8">
-                  <span className="text-6xl font-black text-white" style={{ letterSpacing: '-0.03em' }}>
-                    ${plan.price}
-                  </span>
-                  <span className="text-white/35 ml-2 text-sm">/event</span>
+                {/* Price */}
+                <div className="mb-2">
+                  <div className="flex items-end gap-1">
+                    <span className="text-5xl font-black text-white" style={{ letterSpacing: '-0.03em' }}>
+                      {plan.currency}{plan.price}
+                    </span>
+                  </div>
+                  <p className="text-xs text-white/30 mt-1.5 flex items-center gap-1">
+                    <Info size={11} />
+                    One-time flat fee per event · No recurring charges
+                  </p>
                 </div>
+
+                <div className="my-6 h-px" style={{ background: 'rgba(255,255,255,0.05)' }} />
 
                 <Link
                   href={plan.href}
-                  className={`${plan.highlight ? 'btn-primary' : 'btn-secondary'} w-full justify-center mb-8`}
+                  className={`${plan.highlight ? 'btn-primary' : 'btn-secondary'} w-full justify-center mb-6`}
                 >
                   {plan.cta}
                 </Link>
 
-                <ul className="space-y-3.5">
+                <ul className="space-y-3">
                   {plan.features.map(f => (
                     <li key={f} className="flex items-center gap-3 text-sm text-white/65">
                       <div
@@ -132,9 +170,15 @@ export function PricingSection() {
           })}
         </div>
 
-        <motion.p {...inView(0.3)} className="text-center text-sm text-white/25 mt-8">
-          All plans include SSL encryption, 99.9% uptime, and Supabase-powered secure storage.
-        </motion.p>
+        {/* Bottom note */}
+        <motion.div {...inView(0.3)} className="mt-10 text-center">
+          <p className="text-sm text-white/25">
+            All plans include SSL encryption · 99.9% uptime · Supabase-powered secure storage
+          </p>
+          <p className="text-xs text-white/15 mt-2">
+            Need multiple events? Each event is purchased separately — pay only for what you need.
+          </p>
+        </motion.div>
       </div>
     </section>
   )

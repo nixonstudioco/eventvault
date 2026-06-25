@@ -37,8 +37,16 @@ export function LoginForm() {
         password: data.password,
       })
       if (error) throw error
+
+      // Check role and redirect accordingly
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', (await supabase.auth.getUser()).data.user!.id)
+        .single()
+
       toast.success('Welcome back!')
-      router.push('/dashboard')
+      router.push(profile?.role === 'admin' ? '/admin' : '/dashboard')
       router.refresh()
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Failed to sign in')

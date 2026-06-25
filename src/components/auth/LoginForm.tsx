@@ -38,16 +38,13 @@ export function LoginForm() {
       })
       if (error) throw error
 
-      // Check role and redirect accordingly
+      const { data: { user: me } } = await supabase.auth.getUser()
       const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', (await supabase.auth.getUser()).data.user!.id)
-        .single()
+        .from('profiles').select('role').eq('id', me!.id).single()
 
       toast.success('Welcome back!')
-      router.push(profile?.role === 'admin' ? '/admin' : '/dashboard')
-      router.refresh()
+      // Full page navigation — bypasses Next.js client cache
+      window.location.href = profile?.role === 'admin' ? '/admin' : '/dashboard'
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Failed to sign in')
     } finally {
